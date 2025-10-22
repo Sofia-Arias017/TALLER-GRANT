@@ -4,22 +4,19 @@ GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
 ALTER USER 'admin'@'%' WITH MAX_QUERIES_PER_HOUR 50;
 
 
---USUARIO CAJERO
+-- USUARIO CAJERO
 CREATE USER 'cajero'@'%' IDENTIFIED BY 'c4jer@123';
-GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.pedido TO 'cajero'@'%';
-GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.detalle_pedido TO 'cajero'@'%';
-GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.factura TO 'cajero'@'%';
-GRANT SELECT ON ecommerce_zapatos.cliente TO 'cajero'@'%';
-GRANT SELECT ON ecommerce_zapatos.producto TO 'cajero'@'%';
-GRANT SELECT ON ecommerce_zapatos.presentacion TO 'cajero'@'%';
-GRANT SELECT ON ecommerce_zapatos.combo TO 'cajero'@'%';
+GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.Pedidos TO 'cajero'@'%';
+GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.PedidoProducto TO 'cajero'@'%';
+GRANT SELECT, INSERT, UPDATE ON ecommerce_zapatos.Productos TO 'cajero'@'%';
+GRANT SELECT ON ecommerce_zapatos.Usuarios TO 'cajero'@'%';
 ALTER USER 'cajero'@'%' WITH MAX_QUERIES_PER_HOUR 50;
 
 
---USUARIO ANALISTA
+-- USUARIO ANALISTA
 CREATE USER 'analista'@'%' IDENTIFIED BY '4n4list4123';
-GRANT SELECT, SHOW VIEW, SHOW TABLES ON ecommerce_zapatos.* TO 'analista'@'%';
-GRANT EXECUTE ON FUNCTION ecommerce_zapatos.* TO 'analista'@'%';
+GRANT SELECT, SHOW VIEW ON ecommerce_zapatos.* TO 'analista'@'%';
+GRANT EXECUTE ON *.* TO 'analista'@'%';
 ALTER USER 'analista'@'%' WITH MAX_QUERIES_PER_HOUR 50;
 
 
@@ -36,11 +33,11 @@ ALTER USER 'analista'@'%' WITH MAX_QUERIES_PER_HOUR 50;
 ALTER USER 'desarrollador'@'%' WITH MAX_QUERIES_PER_HOUR 0;
 
 
---Asignar persmisos al usuario en donde permita: Ver sus pedidos (usando procedimiento)
+-- Asignar permisos al usuario en donde permita: Ver sus pedidos (usando procedimiento)
 DELIMITER //
 CREATE PROCEDURE VerMisPedidos(IN p_id_cliente INT)
 BEGIN
-  SELECT * FROM pedido WHERE id_cliente = p_id_cliente;
+  SELECT * FROM Pedidos WHERE id_cliente = p_id_cliente;
 END //
 DELIMITER ;
 
